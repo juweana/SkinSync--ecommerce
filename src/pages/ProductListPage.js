@@ -21,11 +21,10 @@ function ProductListPage({ addToCart }) {
 
   // Fetch products whenever search, ordering, or page changes
   useEffect(() => {
-    getProducts(search, ordering, page).then((data) => {
-      // 2. Handle paginated response structure from Django
-      setProducts(data.results);
-      // 12 is your backend page_size
-      setTotalPages(Math.ceil(data.count / 12));
+    getProducts(search, ordering, page, "").then((data) => {
+      // Make sure it reads from data.results safely
+      setProducts(data.results || []);
+      setTotalPages(Math.ceil((data.count || 0) / 12));
     });
   }, [search, ordering, page]);
 
@@ -131,14 +130,16 @@ function ProductListPage({ addToCart }) {
 
                 <div className="flex gap-2">
                   <button
-                    className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold text-xs rounded-xl transition-all cursor-pointer"
+                    className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800
+                     font-semibold text-xs rounded-xl transition-all cursor-pointer"
                     onClick={() => navigate(`/products/${product.id}`)}
                   >
                     Details
                   </button>
 
                   <button
-                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs rounded-xl shadow-md transition-all cursor-pointer"
+                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white
+                     font-semibold text-xs rounded-xl shadow-md transition-all cursor-pointer"
                     onClick={() => navigate(`/products/${product.id}`)}
                   >
                     Add
@@ -155,7 +156,8 @@ function ProductListPage({ addToCart }) {
         <button
           onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
           disabled={page === 1}
-          className="px-5 py-2.5 bg-white border border-gray-200 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shadow-sm transition-all"
+          className="px-5 py-2.5 bg-white border border-gray-200 rounded-xl text-sm font-medium text-gray-700
+           hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shadow-sm transition-all"
         >
           Previous
         </button>
@@ -167,7 +169,8 @@ function ProductListPage({ addToCart }) {
         <button
           onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
           disabled={page === totalPages || totalPages === 0}
-          className="px-5 py-2.5 bg-white border border-gray-200 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shadow-sm transition-all"
+          className="px-5 py-2.5 bg-white border border-gray-200 rounded-xl text-sm font-medium text-gray-700
+           hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shadow-sm transition-all"
         >
           Next
         </button>
