@@ -6,16 +6,17 @@ import axios from "axios";
 const API_URL = `${process.env.REACT_APP_API_URL}/products/`;
 const CATEGORIES_URL = `${process.env.REACT_APP_API_URL}/categories/`;
 
-export async function getProducts(search, ordering, category) {
+export async function getProducts(search, ordering, category, page = 1) {
   const response = await axios.get(API_URL, {
     params: {
       search: search,
       ordering: ordering,
       category: category,
+      page: page,
     },
   });
 
-  return response.data.results;
+  return response.data;
 }
 
 export async function getProduct(id) {
