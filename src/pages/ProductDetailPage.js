@@ -1,5 +1,5 @@
-import { useEffect,useState } from "react";
-import { useNavigate,useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { getProduct } from "../api/productsApi";
 
 function ProductDetailPage({ addToCart }) {
@@ -17,7 +17,10 @@ function ProductDetailPage({ addToCart }) {
 
   return (
     <main className="p-4">
-      <button className="mb-4 bg-gray-200 p-2" onClick={() => navigate("/products")}>
+      <button
+        className="mb-4 bg-gray-200 p-2"
+        onClick={() => navigate("/products")}
+      >
         Back To Products
       </button>
 
@@ -36,9 +39,15 @@ function ProductDetailPage({ addToCart }) {
       </button>
 
       {product.image ? (
-        <img className="mb-4 h-72 w-full object-cover" src={product.image} alt={product.name} />
+        <img
+          className="mb-4 h-72 w-full object-cover"
+          src={product.image}
+          alt={product.name}
+        />
       ) : (
-        <div className="mb-4 flex h-72 items-center justify-center bg-gray-200">No Image</div>
+        <div className="mb-4 flex h-72 items-center justify-center bg-gray-200">
+          No Image
+        </div>
       )}
 
       <h1 className="text-2xl font-bold">{product.name}</h1>
