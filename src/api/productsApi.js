@@ -21,7 +21,7 @@ export async function getProducts(
     },
   });
 
-  return response.data.results;
+  return response.data;
 }
 
 export async function getProduct(id) {
